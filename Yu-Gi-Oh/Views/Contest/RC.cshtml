@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.ClassificationRound>
+
+@{
+    ViewBag.Title = "RC";
+}
+
+<h2>Rondas Clasificatorias</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Número de Ronda
+        </th>
+        <th>
+            Número de Ronda Clasificatoria
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoundNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassificationRoundNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Partidas", "RoundC", item)
+        </td>
+        <td>
+            @Html.ActionLink("Lista de Puntuación", "LP", item)
+        </td>
+    </tr>
+}
+
+</table>

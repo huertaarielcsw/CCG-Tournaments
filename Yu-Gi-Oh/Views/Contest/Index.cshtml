@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.ContestPlay>
+
+@{
+    ViewBag.Title = "Contests";
+}
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/Images/YCS_200_Logo.png" width="300" height="300" />
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <img src="~/Images/ycs_logo-1.png" width="300" height="270" />    
+    </div>
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nombre del Torneo
+        </th>
+        <th>
+            Fecha de Inicio
+        </th>
+        <th>
+            Dirección del Torneo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+              @Html.ActionLink(@Html.DisplayFor(modelItem => item.ContestName).ToHtmlString(), "AnotherIndex", item)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContestDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContestAddress)
+            </td>
+        </tr>
+    }
+</table>
+

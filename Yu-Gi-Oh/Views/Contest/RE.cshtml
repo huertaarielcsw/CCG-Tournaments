@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.EliminationRound>
+
+@{
+    ViewBag.Title = "RE";
+}
+
+<h2>Rondas Eliminatorias</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Número de Ronda
+        </th>
+        <th>
+            Número de Ronda Eliminatoria
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoundNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EliminationRoundNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Partidas", "RoundE", item)
+        </td>
+    </tr>
+}
+
+</table>

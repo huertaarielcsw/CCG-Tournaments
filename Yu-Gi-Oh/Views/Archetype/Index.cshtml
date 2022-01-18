@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.Archetype>
+
+@{
+    ViewBag.Title = "Arquetipos";
+}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <img src="~/Images/footer-card.jpg" />
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <table class="table">
+            <tr>
+                <th>Nombre del Arquetipo</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArchetypeName)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+

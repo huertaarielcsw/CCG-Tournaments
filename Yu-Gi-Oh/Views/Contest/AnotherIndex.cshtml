@@ -1,0 +1,27 @@
+﻿@model Yu_Gi_Oh.Models.ContestPlay
+
+@{
+    ViewBag.Title = "Contest Page";
+}
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Participantes</h2>
+            <p>Información acerca de los jugadores inscritos en el torneo y del deck que seleccionaron para participar.</p>
+            <a class="btn btn-primary" @Html.ActionLink("Mostrar", "PIC", Model)></a>
+            <h2>Rondas Clasificatorias</h2>
+            <p>Información acerca de las rondas clasificatorias del torneo , así como la lista de puntuación de las mismas.</p>
+            <a class="btn btn-primary"@Html.ActionLink("Mostrar", "RC", Model)></a>           
+            <h2>Rondas Eliminatorias</h2>
+            <p>Información acerca de las rondas eliminatorias del torneo.</p>
+            <a class="btn btn-primary" @Html.ActionLink("Mostrar", "RE", Model)></a> 
+        </div>
+        <div class="col-md-8">
+          
+                <img src="~/Images/01_Intro.jpg" width="850" height="524"  />
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,386 @@
+﻿
+@{
+    ViewBag.Title = "Queries";
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><img src="~/Images/EN-and-DE-Resized.png" /></div>
+
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <button class="lead btn btn-danger" id="btnGetQuery1"><abbr title="Los jugadores con más decks en su poder (ordenados de mayor a menor).">Query1</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery2"><abbr title="Los n arquetipos más populares entre los jugadores (ordenados de mayor a menor).">Query2</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery3"><abbr title="La provincia/municipio donde es más popular (más jugadores la usan) un arquetipo dado.">Query3</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery4"><abbr title="El campeón de un torneo.">Query4</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery5"><abbr title="Los n jugadores con más victorias (en un intervalo de tiempo, ordenados de mayor a menor).">Query5</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery6"><abbr title="El arquetipo más utilizado por los jugadores en un torneo dado.">Query6</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery7"><abbr title="La cantidad de veces que un arquetipo ha sido el arquetipo de un campeón de un torneo (en un intervalo de tiempo).">Query7</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery8"><abbr title="La provincia/municipio con más campeones (en un intervalo de tiempo).">Query8</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery9"><abbr title="Dado un torneo y una ronda , cuál o cuáles son los arquetipos más representados (cantidad de jugadores usándolos).">Query9</abbr></button>
+            <button class="lead btn btn-danger" id="btnGetQuery10"><abbr title="Los n arquetipos más utilizados por al menos un jugador en los torneos (ordenados de mayor a menor).">Query10</abbr></button>
+            <br /><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <input id="txtArchetype" type="text" placeholder="Arquetipo" />
+            <input id="txtContest" type="text" placeholder="Torneo" />
+            <input id="txtRound" type="text" placeholder="Ronda" />
+            <input id="txtTimeI" type="text" placeholder="mes/día/año inicio" />
+            <input id="txtTimeF" type="text" placeholder="mes/día/año fin" />
+            <input id="txtConstant" type="text" placeholder="n" />
+            <br /><br />
+          
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-6">
+            <div id="lblMessage"></div>
+        </div>
+    </div>
+}
+
+            @section Scripts
+{
+                <script type="text/javascript">
+
+        $(function () {
+            $('#btnGetQuery1').on("click", function () {
+                var constant = $('#txtConstant').val();
+                if (constant == "") {
+                    $('#lblMessage').html('Usted debe introducir una constante');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query1")',
+                    data: { n:constant},
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    console.log(data);
+                    for (var i = 0; i < data.Q_1.length; i++) {
+                       outPut += '<hr/><br/>';
+                       outPut += '<b>Nombre: </b>' + data.Q_1[i].PlayerName + '<br/>';
+                       outPut += '<b>Cantidad: </b>' + data.Q_1[i].DecksCount + '<br/>';
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+            $('#btnGetQuery2').on("click", function () {
+                var constant = $('#txtConstant').val();
+                if (constant == "") {
+                    $('#lblMessage').html('Usted debe introducir una constante');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query2")',
+                    data: { n: constant },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    for (var i = 0; i < data.Q_2.length; i++) {
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Nombre del arquetipo: </b>' + data.Q_2[i].Item1 + '<br/>';
+                        outPut += '<b>Cantidad: </b>' + data.Q_2[i].Item2 + '<br/>';
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery3').on("click", function () {
+                var archetype = $('#txtArchetype').val();
+                if (archetype == "") {
+                    $('#lblMessage').html('Usted debe introducir un arquetipo');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query3")',
+                    data: { n: archetype },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Provincia: </b>' + data.Q_3[0].Item1 + '<br/>';
+                        outPut += '<b>Municipio: </b>' + data.Q_3[0].Item2 + '<br/>';
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery4').on("click", function () {
+                var contest = $('#txtContest').val();
+                if (contest == "") {
+                    $('#lblMessage').html('Usted debe introducir un torneo');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query4")',
+                    data: { n: contest },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    outPut += '<hr/><br/>';
+                    outPut += '<b>Nombre del campeon: </b>' + '<br/>';
+                    for (var i = 0; i < data.Q_4.length; i++) {
+                        outPut += data.Q_4[i];
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery5').on("click", function () {
+                var constant = $('#txtConstant').val();
+                var tI = $('#txtTimeI').val();
+                var tF = $('#txtTimeF').val();
+                if (constant == "") {
+                    $('#lblMessage').html('Usted debe introducir una constante');
+                    return false;}
+                if (tI == "" ) {
+                    $('#lblMessage').html('Usted debe introducir una fecha inicial');
+                    return false;
+                }
+                if (tF == "") {
+                    $('#lblMessage').html('Usted debe introducir una fecha final');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query5")',
+                    data: { n: constant, i: tI, f: tF},
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    for (var i = 0; i < data.Q_5.length; i++) {
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Nombre del jugador: </b>' + data.Q_5[i].Item1 + '<br/>';
+                        outPut += '<b>Cantidad: </b>' + data.Q_5[i].Item2 + '<br/>';
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+
+            $('#btnGetQuery6').on("click", function () {
+                var contest = $('#txtContest').val();
+                if (contest == "") {
+                    $('#lblMessage').html('Usted debe introducir un torneo');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query6")',
+                    data: { n:contest },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    outPut += '<hr/><br/>';
+                    outPut += '<b>Arquetipo: </b>' + data.Q_6[0].Item1 + '<br/>';
+                    outPut += '<b>Cantidad: </b>' + data.Q_6[0].Item2 + '<br/>';
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery7').on("click", function () {
+                var tI = $('#txtTimeI').val();
+                var tF = $('#txtTimeF').val();
+                if (tI == "") {
+                    $('#lblMessage').html('Usted debe introducir un tiempo inicial');
+                    return false;
+                }
+                if (tF == "") {
+                    $('#lblMessage').html('Usted debe introducir un tiempo final');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query7")',
+                    data: { i: tI, f: tF },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    outPut += '<hr/><br/>';
+                    for (var i = 0; i < data.Q_7.length; i++) {
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Arquetipo del campeon: </b>' + data.Q_7[i].Item1 + '<br/>';
+                        outPut += '<b>Cantidad: </b>' + data.Q_7[i].Item2 + '<br/>';
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery8').on("click", function () {
+                var tI = $('#txtTimeI').val();
+                var tF = $('#txtTimeF').val();
+                if (tI == "") {
+                    $('#lblMessage').html('Usted debe introducir un tiempo inicial');
+                    return false;
+                }
+                if (tF == "") {
+                    $('#lblMessage').html('Usted debe introducir un tiempo final');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query8")',
+                    data: { i:tI, f:tF},
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Provincia: </b>' + data.Q_8[0].Item1 + '<br/>';
+                        outPut += '<b>Municipio: </b>' + data.Q_8[0].Item2 + '<br/>';
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery9').on("click", function () {
+                var contest = $('#txtContest').val();
+                var round = $('#txtRound').val();
+                if (contest == "") {
+                    $('#lblMessage').html('Usted debe introducir un torneo');
+                    return false;
+                }
+                if (round == "") {
+                    $('#lblMessage').html('Usted debe introducir una ronda');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query9")',
+                    data: { t: contest, r:round },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    for (var i = 0; i < data.Q_9.length; i++) {
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Nombre del arquetipo: </b>' + data.Q_9[i].Item1 + '<br/>';
+                        outPut += '<b>Cantidad: </b>' + data.Q_9[i].Item2 + '<br/>';
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+
+
+            $('#btnGetQuery10').on("click", function () {
+                var constant = $('#txtConstant').val();
+                if (constant == "") {
+                    $('#lblMessage').html('Usted debe introducir una constante');
+                    return false;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Query10")',
+                    data: { n: constant },
+                    datatype: 'json',
+                    cache: false,
+                })
+                .success(function (data) {
+                    var outPut = '';
+                    for (var i = 0; i < data.Q_10.length; i++) {
+                        outPut += '<hr/><br/>';
+                        outPut += '<b>Nombre del arquetipo: </b>' + data.Q_10[i].Item1 + '<br/>';
+                        outPut += '<b>Cantidad: </b>' + data.Q_10[i].Item2 + '<br/>';
+                    }
+                    $('#lblMessage').html(outPut);
+                })
+                .error(function (hxr, ajaxOptions, throwError) {
+                    $('#lblMessage').html('Error!');
+                });
+
+                return false;
+            });
+        });
+                </script>
+            }

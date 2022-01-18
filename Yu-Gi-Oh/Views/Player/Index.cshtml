@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.Player>
+
+@{
+    ViewBag.Title = "Players";
+}
+
+
+<img src="~/Images/maxresdefault-3-2.jpg" width="1200" height="400" />
+
+<table class="table">
+    <tr>
+        <th>
+            Id_Jugador
+        </th>
+        <th>
+            Nombre del Jugador
+        </th>
+        <th>
+            Provincia
+        </th>
+        <th>
+            Municipio
+        </th>
+        <th>
+            Dirección del Jugador
+        </th>
+        <th>
+            Cantidad de Decks
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Province)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Municipality)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DecksCount)
+                </td>
+            </tr>
+    }
+</table>

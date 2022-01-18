@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.Deck>
+
+@{
+    ViewBag.Title = "Decks";
+}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <img src="~/Images/Wiki-wordmark.png"/>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nombre del Deck
+        </th>
+        <th>
+            Id_Jugador
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MainDeck)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SideDeck)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExtraDeck)
+        </th>
+        <th>
+            Nombre del Arquetipo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeckName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainDeck)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SideDeck)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraDeck)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchetypeName)
+            </td>
+        </tr>
+    }
+</table>
+

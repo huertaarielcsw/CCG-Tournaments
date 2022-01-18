@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.Game>
+
+@{
+    ViewBag.Title = "Games";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GameNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParticipantsNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Results)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        for (int i = 0; i < item.ParticipantsNumber.Length; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GameNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParticipantsNumber[i])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Results[i])
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Tuple<int,int>>
+
+@{
+    ViewBag.Title = "LP";
+}
+
+<h2>Lista de Puntuación de esta ronda clasificatoria</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Id_Participante
+        </th>
+        <th>
+            Puntuación
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item2)
+            </td>
+        </tr>
+    }
+
+</table>

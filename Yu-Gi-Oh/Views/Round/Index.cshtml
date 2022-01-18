@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.Round>
+
+@{
+    ViewBag.Title = "Rounds";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoundNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassificationRoundNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EliminationRoundNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoundNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassificationRoundNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EliminationRoundNumber)
+            </td>
+        </tr>
+    }
+</table>
+

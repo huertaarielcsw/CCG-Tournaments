@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Yu_Gi_Oh.Models.Game>
+
+@{
+    ViewBag.Title = "RoundE";
+}
+
+<h2>Partidas de esta ronda eliminatoria</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Id_Partida
+        </th>
+        <th>
+            Id_Participante
+        </th>
+        <th>
+            Id_Participante
+        </th>
+        <th>
+            Resultado
+        </th>
+        <th>
+            Id_Participante Ganador
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParticipantsNumber[0])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParticipantsNumber[1])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Results[0]) - @Html.DisplayFor(modelItem => item.Results[1])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WinnerParticipantNumber)
+            </td>
+        </tr>
+    }
+
+</table>
